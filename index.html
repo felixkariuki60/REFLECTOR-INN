@@ -1,0 +1,3475 @@
+<!DOCTYPE html>
+<!--
+=============================================================
+REFLECTOR INN LOUNGE & ACCOMMODATION — DEPLOYMENT NOTES
+=============================================================
+IMAGES: All images sit in the SAME folder as this HTML file.
+  hero-a.jpg, hero-b.jpg, signature-dish.jpg, interior-atmosphere.jpg,
+  menu-background.jpg, daily-specials-background.jpg, our-story-background.jpg,
+  gallery-background.jpg, kitchen-action.jpg, logo.jpg
+  + service images: service-bar.jpg, service-restaurant.jpg, service-accommodation.jpg,
+    service-gym.jpg, service-sauna.jpg, service-kinyozi.jpg, service-carwash.jpg
+  + food images: spring-rolls.jpg, chicken-wings.jpg, nachos.jpg,
+    garlic-bread.jpg, onion-rings.jpg, caesar-salad.jpg, garden-salad.jpg,
+    fries.jpg, burger.jpg, grilled-chicken.jpg, pasta.jpg, steak.jpg,
+    pizza.jpg, club-sandwich.jpg, fish-and-chips.jpg, wrap.jpg,
+    quesadilla.jpg, espresso.jpg, cappuccino.jpg, latte.jpg,
+    fresh-juice.jpg, smoothie.jpg, milkshake.jpg, iced-tea.jpg,
+    lemonade.jpg, cold-brew.jpg, cheesecake.jpg, chocolate-cake.jpg,
+    brownie.jpg, ice-cream.jpg, tiramisu.jpg, fruit-tart.jpg,
+    carrot-cake.jpg, cookie.jpg, waffle-sundae.jpg
+
+UPDATE CONTENT: Edit the JS block at top of <script> tagged "EDIT HERE"
+REPLACE HEROES: hero-a.jpg (empty/dusk), hero-b.jpg (lively/warm)
+AI RECEPTIONIST: Update RECEPTIONIST_KNOWLEDGE object in script
+DEPLOY: Drag entire folder to netlify.com/drop
+DOMAIN: Settings > Domain Management
+GOOGLE SEARCH CONSOLE: Submit after launch
+WHATSAPP: Replace [INSERT WHATSAPP] with actual number e.g. 254712345678
+PHONE: Replace [INSERT PHONE] with actual number
+MAPS API: Replace YOUR_MAPS_API_KEY in the map section
+=============================================================
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reflector Inn Lounge & Accommodation | Kamulu, Nairobi</title>
+<meta name="description" content="Reflector Inn Lounge & Accommodation in Kamulu, Nairobi. Bar, restaurant, accommodation, gym, sauna, kinyozi, carwash. Open 24 hours. KES 500–2,500 per person.">
+<meta name="keywords" content="Reflector Inn, Kamulu, Nairobi, lounge, accommodation, bar, restaurant, gym, sauna, open 24 hours">
+<meta property="og:title" content="Reflector Inn Lounge & Accommodation | Kamulu Nairobi">
+<meta property="og:description" content="Your serene escape in Kamulu, Nairobi. Bar, restaurant, gym, sauna & accommodation. Open 24 hours.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="hero-a.jpg">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://reflectorinn.co.ke">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+<!-- Schema.org Restaurant Markup -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Reflector Inn Lounge & Accommodation",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Kangundo Road, near Kamulu Police Station",
+    "addressLocality": "Kamulu",
+    "addressRegion": "Nairobi",
+    "addressCountry": "KE"
+  },
+  "geo": {"@type": "GeoCoordinates", "latitude": -1.2921, "longitude": 36.9500},
+  "openingHours": "Mo-Su 00:00-23:59",
+  "priceRange": "KES 500–2500",
+  "telephone": "[INSERT PHONE]",
+  "servesCuisine": ["Kenyan", "International"],
+  "amenityFeature": ["Bar", "Accommodation", "Gym", "Sauna", "Carwash"],
+  "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.1", "reviewCount": "87"}
+}
+</script>
+
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================ */
+:root {
+  --gold: #D4AF37;
+  --gold-light: #F0D060;
+  --gold-dim: rgba(212,175,55,0.18);
+  --diamond: #B9F2FF;
+  --diamond-dim: rgba(185,242,255,0.12);
+  --bg-deep: #060608;
+  --bg-card: #0E0E12;
+  --bg-panel: #13131A;
+  --text-primary: #F5F0E8;
+  --text-muted: #8A8070;
+  --text-dim: #5A5448;
+  --neon-gold: 0 0 8px rgba(212,175,55,0.6), 0 0 24px rgba(212,175,55,0.3);
+  --neon-diamond: 0 0 8px rgba(185,242,255,0.5), 0 0 20px rgba(185,242,255,0.2);
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Crimson Pro', Georgia, serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 4px;
+  --transition: 0.3s ease;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+ul, ol { list-style: none; }
+
+/* Scanline texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.04) 2px,
+    rgba(0,0,0,0.04) 4px
+  );
+  pointer-events: none;
+  z-index: 9990;
+}
+
+/* Grid texture */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(212,175,55,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,175,55,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 9989;
+}
+
+/* ============================================================
+   COOKIE CONSENT
+   ============================================================ */
+#cookie-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--bg-panel);
+  border-top: 1px solid var(--gold-dim);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  z-index: 99999;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+#cookie-bar a { color: var(--gold); }
+.cookie-accept {
+  background: var(--gold);
+  color: var(--bg-deep);
+  padding: 8px 20px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   STICKY NAV
+   ============================================================ */
+#nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 20px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.3s ease, padding 0.3s ease, backdrop-filter 0.3s ease;
+}
+#nav.solid {
+  background: rgba(6,6,8,0.92);
+  backdrop-filter: blur(16px);
+  padding: 14px 40px;
+  border-bottom: 1px solid var(--gold-dim);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  text-shadow: var(--neon-gold);
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 2px;
+  padding: 10px 24px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  transition: all 0.3s;
+}
+.nav-cta:hover { background: var(--gold); color: var(--bg-deep); }
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 2001;
+}
+.nav-burger span {
+  width: 26px;
+  height: 2px;
+  background: var(--gold);
+  transition: all 0.3s;
+  display: block;
+}
+#mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(6,6,8,0.97);
+  z-index: 2000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+#mobile-menu.open { display: flex; }
+#mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 36px;
+  letter-spacing: 4px;
+  color: var(--text-primary);
+  transition: color 0.2s;
+}
+#mobile-menu a:hover { color: var(--gold); }
+.mobile-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  font-size: 32px;
+  color: var(--gold);
+  cursor: pointer;
+  line-height: 1;
+  z-index: 2001;
+}
+
+@media (max-width: 900px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-burger { display: flex; }
+  #nav { padding: 16px 20px; }
+  #nav.solid { padding: 12px 20px; }
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+#hero {
+  position: relative;
+  width: 100%;
+  min-height: 200vh;
+  overflow: hidden;
+}
+
+.hero-panel {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: #0a0a0f;
+}
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.hero-bg img.loaded { opacity: 1; }
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(0,0,0,0.7) 0%,
+    rgba(0,0,0,0.45) 50%,
+    rgba(0,0,0,0.65) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 0 24px;
+  max-width: 1000px;
+  padding-top: 140px;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--diamond);
+  text-shadow: var(--neon-diamond);
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+}
+
+.hero-heading {
+  font-family: var(--font-display);
+  font-size: 96px;
+  line-height: 0.92;
+  letter-spacing: 6px;
+  color: var(--gold);
+  text-shadow: var(--neon-gold), 0 2px 24px rgba(0,0,0,0.6);
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
+  z-index: 20;
+  position: relative;
+}
+
+.hero-tagline {
+  font-family: var(--font-body);
+  font-size: 22px;
+  font-style: italic;
+  color: var(--text-primary);
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease 0.7s, transform 0.4s ease 0.7s;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease 1s, transform 0.3s ease 1s;
+}
+
+.hero-content.reveal .hero-eyebrow,
+.hero-content.reveal .hero-heading,
+.hero-content.reveal .hero-tagline,
+.hero-content.reveal .hero-ctas {
+  opacity: 1;
+  transform: none;
+}
+
+.btn-primary {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 3px;
+  padding: 16px 40px;
+  background: var(--gold);
+  color: var(--bg-deep);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: var(--gold-light);
+  transition: left 0.3s ease;
+}
+.btn-primary:hover::before { left: 0; }
+.btn-primary span { position: relative; z-index: 1; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(212,175,55,0.4); }
+
+.btn-outline {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 3px;
+  padding: 16px 40px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.btn-outline::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: var(--gold-dim);
+  transition: left 0.3s ease;
+}
+.btn-outline:hover::before { left: 0; }
+.btn-outline span { position: relative; z-index: 1; }
+.btn-outline:hover { transform: translateY(-2px); }
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.scroll-mouse {
+  width: 24px;
+  height: 38px;
+  border: 2px solid rgba(212,175,55,0.5);
+  border-radius: 12px;
+  position: relative;
+}
+.scroll-mouse::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 8px;
+  background: var(--gold);
+  border-radius: 2px;
+  animation: scrollDot 1.5s ease-in-out infinite;
+}
+@keyframes scrollDot {
+  0% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(12px); }
+}
+.scroll-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: rgba(212,175,55,0.5);
+  text-transform: uppercase;
+}
+
+/* Hero 2 */
+#hero-b .hero-heading { color: var(--text-primary); font-size: 72px; }
+#hero-b .hero-tagline { font-size: 20px; color: rgba(245,240,232,0.85); }
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+.hero-stat {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+}
+.hero-content.reveal .hero-stat { opacity: 1; transform: none; transition: opacity 0.5s ease calc(0.8s + var(--i)*0.1s), transform 0.5s ease; }
+.hero-stat-num {
+  font-family: var(--font-display);
+  font-size: 42px;
+  color: var(--gold);
+  text-shadow: var(--neon-gold);
+  line-height: 1;
+}
+.hero-stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+@media (min-width:1024px) and (max-width:1440px) {
+  .hero-heading { padding-top: 160px; font-size: 76px; }
+}
+@media (max-width: 768px) {
+  .hero-heading { font-size: 52px; letter-spacing: 3px; }
+  #hero-b .hero-heading { font-size: 40px; }
+  .hero-tagline { font-size: 18px; }
+  .hero-content { padding-top: 100px; }
+  .hero-stats { gap: 24px; }
+  .hero-stat-num { font-size: 32px; }
+}
+@media (max-width: 480px) {
+  .hero-heading { font-size: 44px; }
+}
+
+/* ============================================================
+   LIVE TICKER
+   ============================================================ */
+#ticker {
+  background: rgba(10,10,14,0.95);
+  border-left: 3px solid var(--gold);
+  border-top: 1px solid var(--gold-dim);
+  border-bottom: 1px solid var(--gold-dim);
+  height: 36px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 20px;
+  position: relative;
+}
+.ticker-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+.ticker-msg {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+.ticker-msg.fade { opacity: 0; }
+.ticker-dot {
+  width: 6px;
+  height: 6px;
+  background: #22c55e;
+  border-radius: 50%;
+  margin-right: 10px;
+  flex-shrink: 0;
+  animation: tickerPulse 2s ease-in-out infinite;
+}
+@keyframes tickerPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+/* ============================================================
+   SECTION SHARED
+   ============================================================ */
+.section-bg-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.section-bg-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.section-bg-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.68);
+  z-index: 1;
+  pointer-events: none;
+}
+.section-content {
+  position: relative;
+  z-index: 2;
+}
+.section-fallback-bg {
+  background: linear-gradient(135deg, #0a0a0e 0%, #111118 50%, #0d0d10 100%);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--diamond);
+  margin-bottom: 12px;
+  display: block;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 64px;
+  letter-spacing: 4px;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 24px;
+}
+.section-divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin: 20px 0;
+}
+
+.reveal-el {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal-el.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .section-title { font-size: 40px; }
+}
+
+/* ============================================================
+   SERVICES IMMERSIVE SELECTOR
+   ============================================================ */
+#services {
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+.services-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: #060608;
+}
+.services-bg-layer img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.services-bg-layer img.active { opacity: 1; }
+.services-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(0,0,0,0.6);
+  transition: background 0.4s ease;
+}
+.services-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+}
+.services-list {
+  flex: 1;
+  padding: 100px 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+}
+.service-item {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(212,175,55,0.12);
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.service-item:first-child { border-top: 1px solid rgba(212,175,55,0.12); }
+.service-item:hover { padding-left: 12px; }
+.service-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gold-dim);
+  letter-spacing: 2px;
+  min-width: 32px;
+  transition: color 0.3s;
+}
+.service-item:hover .service-num, .service-item.active .service-num { color: var(--gold); }
+.service-name {
+  font-family: var(--font-display);
+  font-size: 32px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  transition: color 0.3s;
+  line-height: 1.2;
+}
+.service-item:hover .service-name, .service-item.active .service-name {
+  color: var(--text-primary);
+  text-shadow: var(--neon-gold);
+}
+.service-desc {
+  font-size: 14px;
+  color: var(--text-dim);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s;
+  opacity: 0;
+  font-family: var(--font-body);
+}
+.service-item.active .service-desc {
+  max-height: 60px;
+  opacity: 1;
+}
+.services-preview {
+  width: 380px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 40px;
+  display: none;
+}
+@media (min-width: 1024px) { .services-preview { display: flex; } }
+.services-preview-img {
+  width: 300px;
+  height: 400px;
+  object-fit: cover;
+  border: 1px solid var(--gold-dim);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.services-preview-img.active { opacity: 1; transform: scale(1); }
+
+/* Mobile service image */
+.service-mobile-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border: 1px solid var(--gold-dim);
+  margin-top: 12px;
+  display: none;
+}
+.service-item.active .service-mobile-img { display: block; }
+
+@media (max-width: 768px) {
+  .services-list { padding: 80px 24px; }
+  .service-name { font-size: 24px; }
+  #services { min-height: auto; }
+}
+
+/* ============================================================
+   COUNTDOWN
+   ============================================================ */
+#specials {
+  padding: 80px 40px;
+  text-align: center;
+}
+.countdown-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 32px 0;
+  flex-wrap: wrap;
+}
+.countdown-block {
+  text-align: center;
+  min-width: 80px;
+}
+.countdown-num {
+  font-family: var(--font-display);
+  font-size: 72px;
+  line-height: 1;
+  color: var(--gold);
+  text-shadow: var(--neon-gold);
+}
+.countdown-unit {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.countdown-sep {
+  font-family: var(--font-display);
+  font-size: 60px;
+  color: var(--gold-dim);
+  line-height: 1;
+  padding-bottom: 20px;
+}
+.specials-offer {
+  background: var(--gold-dim);
+  border: 1px solid var(--gold-dim);
+  display: inline-block;
+  padding: 32px 48px;
+  margin: 24px auto;
+  max-width: 600px;
+}
+.specials-offer-name {
+  font-family: var(--font-display);
+  font-size: 36px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.specials-offer-price {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.specials-offer-note {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+@media (max-width: 768px) {
+  #specials { padding: 60px 20px; }
+  .countdown-num { font-size: 52px; }
+}
+
+/* ============================================================
+   MENU SECTION
+   ============================================================ */
+#menu {
+  padding: 80px 0;
+}
+.menu-inner {
+  padding: 0 40px;
+}
+.menu-category {
+  margin-bottom: 60px;
+}
+.menu-cat-header {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 24px;
+  padding: 0 0 16px;
+  border-bottom: 1px solid var(--gold-dim);
+}
+.menu-cat-title {
+  font-family: var(--font-display);
+  font-size: 44px;
+  letter-spacing: 4px;
+  color: var(--text-primary);
+}
+.menu-cat-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 2px;
+}
+.menu-row-wrap {
+  position: relative;
+}
+.menu-row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-dim) transparent;
+}
+.menu-row::-webkit-scrollbar { height: 3px; }
+.menu-row::-webkit-scrollbar-track { background: transparent; }
+.menu-row::-webkit-scrollbar-thumb { background: var(--gold-dim); }
+.menu-card {
+  scroll-snap-align: start;
+  flex: 0 0 220px;
+  background: var(--bg-card);
+  border: 1px solid rgba(212,175,55,0.08);
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.menu-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold-dim);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+.menu-card-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  background: #111118;
+}
+.menu-card-body {
+  padding: 14px 16px;
+}
+.menu-card-name {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.menu-card-price {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+.menu-card-add {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  background: var(--gold);
+  color: var(--bg-deep);
+  font-size: 20px;
+  line-height: 32px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 700;
+  border: none;
+}
+.menu-card-add:hover { background: var(--gold-light); transform: scale(1.1); }
+.menu-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  background: rgba(6,6,8,0.85);
+  border: 1px solid var(--gold-dim);
+  color: var(--gold);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s;
+}
+.menu-arrow:hover { background: var(--gold-dim); }
+.menu-arrow.left { left: -18px; }
+.menu-arrow.right { right: -18px; }
+.social-proof-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: #22c55e;
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.2);
+  padding: 2px 8px;
+  margin-top: 4px;
+}
+@media (max-width: 768px) {
+  .menu-inner { padding: 0 16px; }
+  .menu-arrow { display: none; }
+}
+
+/* ============================================================
+   CART / YOUR ORDER
+   ============================================================ */
+#cart-fab {
+  position: fixed;
+  bottom: 160px;
+  right: 24px;
+  z-index: 9997;
+  pointer-events: auto !important;
+  display: none;
+}
+.cart-fab-btn {
+  width: 52px;
+  height: 52px;
+  background: var(--gold);
+  color: var(--bg-deep);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(212,175,55,0.4);
+  font-size: 22px;
+  position: relative;
+  border: none;
+  pointer-events: auto !important;
+}
+.cart-count {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: #ef4444;
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#cart-panel {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 400px;
+  height: 100vh;
+  background: var(--bg-panel);
+  border-left: 1px solid var(--gold-dim);
+  z-index: 9998;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s ease;
+}
+#cart-panel.open { right: 0; }
+.cart-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--gold-dim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cart-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 3px;
+  color: var(--gold);
+}
+.cart-close {
+  font-size: 28px;
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+  pointer-events: auto !important;
+}
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 24px;
+}
+.cart-empty {
+  text-align: center;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 16px;
+  padding: 40px 0;
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(212,175,55,0.07);
+}
+.cart-item-name {
+  flex: 1;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+.cart-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.qty-btn {
+  width: 28px;
+  height: 28px;
+  background: var(--bg-deep);
+  border: 1px solid var(--gold-dim);
+  color: var(--gold);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto !important;
+}
+.qty-val {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-primary);
+  min-width: 20px;
+  text-align: center;
+}
+.cart-item-price {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--gold);
+  min-width: 70px;
+  text-align: right;
+}
+.cart-footer {
+  padding: 20px 24px;
+  border-top: 1px solid var(--gold-dim);
+}
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+.cart-total-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.cart-total-val {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--gold);
+}
+.cart-nudge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--diamond);
+  text-align: center;
+  padding: 6px;
+  background: var(--diamond-dim);
+  margin-bottom: 12px;
+  display: none;
+}
+.cart-delivery-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+.cart-input {
+  width: 100%;
+  background: var(--bg-deep);
+  border: 1px solid var(--gold-dim);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  outline: none;
+}
+.cart-input:focus { border-color: var(--gold); }
+.cart-confirm-btn {
+  width: 100%;
+  min-height: 52px;
+  background: var(--gold);
+  color: var(--bg-deep);
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 3px;
+  border: none;
+  cursor: pointer;
+  pointer-events: auto !important;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.cart-confirm-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: var(--gold-light);
+  transition: left 0.3s;
+}
+.cart-confirm-btn:hover::before { left: 0; }
+.cart-confirm-btn span { position: relative; z-index: 1; }
+.cart-success {
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.3);
+  color: #4ade80;
+  padding: 16px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  text-align: center;
+  display: none;
+}
+
+@media (max-width: 500px) {
+  #cart-panel { width: 100%; right: -100%; }
+  #cart-panel.open { right: 0; }
+}
+
+/* ============================================================
+   BEFORE/AFTER SLIDER
+   ============================================================ */
+#before-after {
+  padding: 80px 40px;
+  text-align: center;
+}
+.before-after-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 480px;
+  margin: 40px auto;
+  overflow: hidden;
+  user-select: none;
+  cursor: col-resize;
+  border: 1px solid var(--gold-dim);
+}
+.before-after-container img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.ba-after { z-index: 1; }
+.ba-before { z-index: 2; clip-path: inset(0 50% 0 0); }
+.ba-handle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 3px;
+  height: 100%;
+  background: var(--gold);
+  z-index: 10;
+  transform: translateX(-50%);
+}
+.ba-grip {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  background: var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(212,175,55,0.6);
+  font-size: 16px;
+  color: var(--bg-deep);
+  font-weight: bold;
+}
+.ba-label {
+  position: absolute;
+  bottom: 16px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  background: rgba(0,0,0,0.5);
+  padding: 4px 10px;
+  z-index: 15;
+}
+.ba-label.left { left: 16px; }
+.ba-label.right { right: 16px; }
+.ba-label.right { z-index: 3; }
+
+@media (max-width: 768px) {
+  .before-after-container { height: 280px; }
+  #before-after { padding: 60px 16px; }
+}
+
+/* ============================================================
+   PARALLAX PHOTO STACK
+   ============================================================ */
+#photo-stack {
+  height: 200vh;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 80px;
+  overflow: hidden;
+}
+.photo-stack-sticky {
+  position: sticky;
+  top: 100px;
+  width: 100%;
+  max-width: 600px;
+  height: 420px;
+  margin: 0 auto;
+}
+.stack-photo {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.06);
+  box-shadow: 0 20px 80px rgba(0,0,0,0.7);
+  will-change: transform;
+  background: var(--bg-card);
+}
+.stack-photo:nth-child(1) { transform: rotate(-2deg); z-index: 5; }
+.stack-photo:nth-child(2) { transform: rotate(0.8deg); z-index: 4; }
+.stack-photo:nth-child(3) { transform: rotate(-0.5deg); z-index: 3; }
+.stack-photo:nth-child(4) { transform: rotate(1.5deg); z-index: 2; }
+.photo-stack-label {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  #photo-stack { height: 140vh; }
+  .photo-stack-sticky { height: 280px; max-width: 340px; }
+}
+
+/* ============================================================
+   REVIEWS
+   ============================================================ */
+#reviews {
+  padding: 80px 40px;
+}
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+.review-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(212,175,55,0.08);
+  padding: 28px;
+  transition: all 0.3s;
+}
+.review-card:hover {
+  border-color: var(--gold-dim);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+.review-stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 12px;
+}
+.review-star { color: var(--gold); font-size: 14px; }
+.review-text {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.review-author {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+}
+.reviews-summary {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.reviews-big-rating {
+  font-family: var(--font-display);
+  font-size: 96px;
+  line-height: 1;
+  color: var(--gold);
+  text-shadow: var(--neon-gold);
+}
+.reviews-breakdown { flex: 1; }
+.rating-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.rating-bar-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  min-width: 8px;
+}
+.rating-bar-track {
+  flex: 1;
+  height: 3px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.rating-bar-fill {
+  height: 100%;
+  background: var(--gold);
+  border-radius: 2px;
+}
+@media (max-width: 768px) {
+  #reviews { padding: 60px 16px; }
+  .reviews-big-rating { font-size: 72px; }
+}
+
+/* ============================================================
+   ABOUT / STORY
+   ============================================================ */
+#about {
+  padding: 100px 40px;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.about-text .section-title { font-size: 56px; }
+.about-body {
+  font-size: 18px;
+  color: rgba(245,240,232,0.8);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.about-body em { color: var(--gold); font-style: normal; }
+.about-img-wrap {
+  position: relative;
+}
+.about-img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  border: 1px solid var(--gold-dim);
+}
+.about-img-accent {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 60%;
+  height: 60%;
+  border: 2px solid var(--gold-dim);
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .about-img { height: 300px; }
+  #about { padding: 60px 20px; }
+}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+#gallery {
+  padding: 80px 40px;
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  margin-top: 40px;
+}
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  cursor: pointer;
+  border: 1px solid rgba(212,175,55,0.06);
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  background: var(--bg-card);
+}
+.gallery-item:hover img { transform: scale(1.04); }
+.gallery-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.gallery-item:hover .gallery-item-overlay { opacity: 1; }
+
+/* Lightbox */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#lightbox.open { display: flex; }
+#lightbox img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border: 1px solid var(--gold-dim);
+}
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-size: 36px;
+  color: var(--gold);
+  cursor: pointer;
+  pointer-events: auto !important;
+  z-index: 100000;
+}
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 28px;
+  color: var(--gold);
+  cursor: pointer;
+  padding: 12px 20px;
+  pointer-events: auto !important;
+  z-index: 100000;
+  background: rgba(6,6,8,0.5);
+}
+.lightbox-nav.left { left: 0; }
+.lightbox-nav.right { right: 0; }
+@media (max-width: 768px) {
+  #gallery { padding: 60px 16px; }
+}
+
+/* ============================================================
+   MAP
+   ============================================================ */
+#map-section {
+  padding: 80px 40px;
+}
+.map-wrap {
+  width: 100%;
+  height: 420px;
+  border: 1px solid var(--gold-dim);
+  margin-top: 40px;
+  position: relative;
+  overflow: hidden;
+}
+/* CUSTOM MAP PLACEHOLDER — replace with Google Maps API embed */
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  background: var(--bg-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.map-placeholder-icon { font-size: 48px; }
+.map-placeholder-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.map-info-bar {
+  display: flex;
+  gap: 40px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.map-info-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.map-info-icon {
+  color: var(--gold);
+  font-size: 18px;
+  margin-top: 2px;
+}
+.map-info-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: block;
+}
+.map-info-val {
+  font-size: 16px;
+  color: var(--text-primary);
+}
+@media (max-width: 768px) {
+  #map-section { padding: 60px 16px; }
+  .map-wrap { height: 300px; }
+  .map-info-bar { gap: 20px; }
+}
+
+/* ============================================================
+   BOOKING / CONTACT
+   ============================================================ */
+#booking {
+  padding: 80px 40px;
+}
+.booking-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  max-width: 1000px;
+  margin: 40px auto 0;
+}
+.booking-form-wrap { }
+.form-row {
+  margin-bottom: 16px;
+}
+.form-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--gold-dim);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--gold); }
+.form-select { cursor: pointer; appearance: none; }
+.form-textarea { min-height: 100px; resize: vertical; }
+.form-honey { display: none; }
+.booking-contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-top: 20px;
+}
+.contact-block { }
+.contact-block-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+  display: block;
+}
+.contact-block-val {
+  font-size: 18px;
+  color: var(--text-primary);
+}
+.contact-block-val a { transition: color 0.2s; }
+.contact-block-val a:hover { color: var(--gold); }
+@media (max-width: 768px) {
+  .booking-grid { grid-template-columns: 1fr; gap: 40px; }
+  #booking { padding: 60px 16px; }
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+  background: #020204;
+  border-top: 1px solid var(--gold-dim);
+  padding: 60px 40px 40px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
+}
+.footer-brand .nav-logo { font-size: 28px; margin-bottom: 12px; display: block; }
+.footer-brand p {
+  font-size: 14px;
+  color: var(--text-dim);
+  max-width: 240px;
+  line-height: 1.6;
+}
+.footer-col-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.footer-col-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-col-links a {
+  font-size: 15px;
+  color: var(--text-dim);
+  transition: color 0.2s;
+}
+.footer-col-links a:hover { color: var(--text-primary); }
+.footer-bottom {
+  border-top: 1px solid rgba(212,175,55,0.07);
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: gap;
+}
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+}
+.footer-legal a {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  margin-left: 20px;
+}
+.footer-legal a:hover { color: var(--gold); }
+@media (max-width: 768px) {
+  footer { padding: 40px 16px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+}
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 12px; }
+}
+
+/* ============================================================
+   FLOATING BUTTONS
+   ============================================================ */
+#whatsapp-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  pointer-events: auto !important;
+  width: 56px;
+  height: 56px;
+  min-width: 52px;
+  min-height: 52px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+  cursor: pointer;
+  animation: waPulse 4s ease-in-out infinite;
+  text-decoration: none;
+}
+@keyframes waPulse {
+  0%,80%,100%{ box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+  40%{ box-shadow: 0 4px 40px rgba(37,211,102,0.7), 0 0 0 12px rgba(37,211,102,0.08); }
+}
+#whatsapp-btn svg { width: 28px; height: 28px; fill: #fff; pointer-events: none; }
+
+#ai-btn {
+  position: fixed;
+  bottom: 92px;
+  right: 24px;
+  z-index: 9999;
+  pointer-events: auto !important;
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, var(--gold), var(--diamond));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(212,175,55,0.4);
+  font-size: 22px;
+  border: none;
+}
+#ai-btn:hover { transform: scale(1.08); }
+
+/* ============================================================
+   AI RECEPTIONIST PANEL
+   ============================================================ */
+#ai-panel {
+  position: fixed;
+  bottom: 160px;
+  right: 24px;
+  width: 360px;
+  max-height: 480px;
+  background: var(--bg-panel);
+  border: 1px solid var(--gold-dim);
+  z-index: 9999;
+  pointer-events: auto !important;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+}
+#ai-panel.open { display: flex; }
+.ai-header {
+  padding: 14px 16px;
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--gold-dim);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.ai-avatar {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, var(--gold), var(--diamond));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+.ai-name-wrap { flex: 1; }
+.ai-name {
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: var(--text-primary);
+  line-height: 1;
+}
+.ai-online {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #22c55e;
+  letter-spacing: 1px;
+}
+.ai-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; animation: tickerPulse 2s infinite; }
+.ai-lang-wrap {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.lang-pill {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+  border: 1px solid var(--gold-dim);
+  cursor: pointer;
+  pointer-events: auto !important;
+  color: var(--text-dim);
+  background: none;
+  transition: all 0.2s;
+}
+.lang-pill.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--bg-deep);
+}
+.ai-close {
+  font-size: 20px;
+  color: var(--text-muted);
+  cursor: pointer;
+  pointer-events: auto !important;
+  line-height: 1;
+  padding: 4px;
+  background: none;
+  border: none;
+}
+.ai-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;
+}
+.ai-msg {
+  max-width: 85%;
+  padding: 10px 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.ai-msg.bot {
+  background: var(--bg-deep);
+  border: 1px solid var(--gold-dim);
+  color: var(--text-primary);
+  align-self: flex-start;
+  border-radius: 0 8px 8px 8px;
+}
+.ai-msg.user {
+  background: var(--gold-dim);
+  color: var(--text-primary);
+  align-self: flex-end;
+  border-radius: 8px 0 8px 8px;
+}
+.ai-suggestions {
+  padding: 8px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  border-top: 1px solid var(--gold-dim);
+  flex-shrink: 0;
+}
+.ai-chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 5px 10px;
+  border: 1px solid var(--gold-dim);
+  color: var(--text-dim);
+  cursor: pointer;
+  pointer-events: auto !important;
+  transition: all 0.2s;
+  background: none;
+}
+.ai-chip:hover { border-color: var(--gold); color: var(--gold); }
+.ai-input-row {
+  display: flex;
+  border-top: 1px solid var(--gold-dim);
+  flex-shrink: 0;
+}
+.ai-input {
+  flex: 1;
+  background: var(--bg-deep);
+  border: none;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 12px 16px;
+  outline: none;
+}
+.ai-send {
+  background: var(--gold);
+  border: none;
+  color: var(--bg-deep);
+  padding: 0 18px;
+  cursor: pointer;
+  font-size: 18px;
+  pointer-events: auto !important;
+}
+@media (max-width: 500px) {
+  #ai-panel { width: calc(100vw - 32px); right: 16px; bottom: 160px; }
+}
+
+/* ============================================================
+   PRIVACY POLICY
+   ============================================================ */
+#privacy-page {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--bg-deep);
+  z-index: 99998;
+  overflow-y: auto;
+  padding: 80px 40px;
+}
+#privacy-page.open { display: block; }
+.privacy-close {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  font-size: 32px;
+  color: var(--gold);
+  cursor: pointer;
+  pointer-events: auto !important;
+}
+.privacy-content { max-width: 720px; margin: 0 auto; }
+.privacy-content h2 { font-family: var(--font-display); font-size: 48px; color: var(--gold); margin-bottom: 24px; }
+.privacy-content h3 { font-family: var(--font-display); font-size: 24px; margin: 24px 0 8px; color: var(--text-primary); }
+.privacy-content p { color: var(--text-muted); margin-bottom: 16px; line-height: 1.7; }
+@media (max-width: 768px) { #privacy-page { padding: 60px 20px; } }
+</style>
+</head>
+<body>
+
+<!-- COOKIE CONSENT (Kenya Data Protection Act 2019) -->
+<div id="cookie-bar" role="banner" aria-label="Cookie consent">
+  <span>We use cookies to improve your experience. By continuing you agree to our <a href="#" onclick="showPrivacy();return false;">Privacy Policy</a> (Kenya Data Protection Act 2019).</span>
+  <button class="cookie-accept" onclick="acceptCookies()" aria-label="Accept cookies">ACCEPT</button>
+</div>
+
+<!-- STICKY NAV -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-logo" role="heading" aria-level="2">REFLECTOR INN</div>
+  <div class="nav-links" role="menubar">
+    <a href="#services" role="menuitem">Services</a>
+    <a href="#menu" role="menuitem">Menu</a>
+    <a href="#reviews" role="menuitem">Reviews</a>
+    <a href="#about" role="menuitem">About</a>
+    <a href="#gallery" role="menuitem">Gallery</a>
+    <a href="#booking" role="menuitem">Book</a>
+  </div>
+  <a href="#booking" class="nav-cta"><span>BOOK NOW</span></a>
+  <div class="nav-burger" onclick="openMobileMenu()" role="button" aria-label="Open menu" tabindex="0" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+  <span class="mobile-close" onclick="closeMobileMenu()" role="button" aria-label="Close menu" tabindex="0">✕</span>
+  <a href="#services" onclick="closeMobileMenu()">SERVICES</a>
+  <a href="#menu" onclick="closeMobileMenu()">MENU</a>
+  <a href="#reviews" onclick="closeMobileMenu()">REVIEWS</a>
+  <a href="#about" onclick="closeMobileMenu()">ABOUT</a>
+  <a href="#gallery" onclick="closeMobileMenu()">GALLERY</a>
+  <a href="#booking" onclick="closeMobileMenu()">BOOK NOW</a>
+</div>
+
+<!-- ============================================================
+     HERO SECTION
+     ============================================================ -->
+<section id="hero" aria-label="Hero">
+
+  <!-- Hero A: Empty / Serene -->
+  <div class="hero-panel" id="hero-a">
+    <div class="hero-bg">
+      <!-- PHOTO NEEDED: hero-a.jpg — Restaurant exterior at dusk, lights off, serene and quiet, Kamulu/Nairobi context -->
+      <img src="hero-a.jpg" alt="Reflector Inn Lounge exterior at dusk — serene and peaceful" width="1920" height="1080" loading="eager" id="hero-a-img">
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-content" id="hero-a-content">
+      <span class="hero-eyebrow">Kamulu · Nairobi · Open 24 Hours</span>
+      <h1 class="hero-heading">REFLECTOR<br>INN</h1>
+      <p class="hero-tagline">Where Nairobi comes to breathe, eat, and stay.</p>
+      <div class="hero-ctas">
+        <a href="#menu" class="btn-primary"><span>EXPLORE MENU</span></a>
+        <a href="#booking" class="btn-outline"><span>BOOK A TABLE</span></a>
+      </div>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <div class="scroll-mouse"></div>
+      <span class="scroll-label">Scroll</span>
+    </div>
+  </div>
+
+  <!-- Hero B: Vibrant / Full of life -->
+  <div class="hero-panel" id="hero-b">
+    <div class="hero-bg">
+      <!-- PHOTO NEEDED: hero-b.jpg — Same venue full of guests, warm interior lighting, food, laughter, steam, Kenyan context -->
+      <img src="hero-b.jpg" alt="Reflector Inn full of happy guests enjoying food and drinks" width="1920" height="1080" loading="lazy" id="hero-b-img">
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+    <div class="hero-content" id="hero-b-content">
+      <span class="hero-eyebrow">4.1 ★ · 87 Reviews · Since 2017</span>
+      <h2 class="hero-heading">THE FULL<br>EXPERIENCE</h2>
+      <p class="hero-tagline">Bar · Restaurant · Accommodation · Gym · Sauna</p>
+      <div class="hero-stats">
+        <div class="hero-stat" style="--i:0"><div class="hero-stat-num">24</div><div class="hero-stat-label">Hours Open</div></div>
+        <div class="hero-stat" style="--i:1"><div class="hero-stat-num">87</div><div class="hero-stat-label">Reviews</div></div>
+        <div class="hero-stat" style="--i:2"><div class="hero-stat-num">500</div><div class="hero-stat-label">KES Minimum</div></div>
+        <div class="hero-stat" style="--i:3"><div class="hero-stat-num">5+</div><div class="hero-stat-label">Services</div></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============================================================
+     LIVE TICKER
+     ============================================================ -->
+<div id="ticker" role="status" aria-live="polite">
+  <div class="ticker-dot"></div>
+  <span class="ticker-label">LIVE</span>
+  <span class="ticker-msg" id="ticker-msg">Burger just ordered — 2 minutes ago</span>
+</div>
+
+<!-- ============================================================
+     SERVICES IMMERSIVE SELECTOR
+     ============================================================ -->
+<section id="services" aria-label="Our Services">
+  <div class="services-bg-layer" id="servicesBgLayer">
+    <img src="service-bar.jpg" alt="Bar interior at Reflector Inn" class="active" data-service="bar">
+    <img src="service-restaurant.jpg" alt="Restaurant dining area at Reflector Inn" data-service="restaurant">
+    <img src="service-accommodation.jpg" alt="Clean accommodation room at Reflector Inn" data-service="accommodation">
+    <img src="service-gym.jpg" alt="Gym equipment and fitness area at Reflector Inn" data-service="gym">
+    <img src="service-sauna.jpg" alt="Sauna and Kinyozi at Reflector Inn" data-service="sauna">
+    <img src="service-carwash.jpg" alt="Carwash area at Reflector Inn" data-service="carwash">
+  </div>
+  <div class="services-overlay" id="servicesOverlay"></div>
+
+  <div class="services-inner">
+    <div class="services-list section-content">
+      <span class="section-label" style="margin-bottom:24px">Everything Under One Roof</span>
+      <h2 class="section-title" style="font-size:56px;margin-bottom:40px">OUR<br>SERVICES</h2>
+
+      <div class="service-item active" data-img="0" onclick="selectService(this,0)">
+        <span class="service-num">01</span>
+        <div>
+          <div class="service-name">LOUNGE & BAR</div>
+          <div class="service-desc">Cold drinks, warm company, and the best evening breeze in Kamulu. Open 24 hours.</div>
+          <img src="service-bar.jpg" alt="Lounge and Bar" class="service-mobile-img" loading="lazy">
+        </div>
+      </div>
+
+      <div class="service-item" data-img="1" onclick="selectService(this,1)">
+        <span class="service-num">02</span>
+        <div>
+          <div class="service-name">RESTAURANT</div>
+          <div class="service-desc">Fresh-made Kenyan and international dishes. Every plate prepared on order. Served with care.</div>
+          <img src="service-restaurant.jpg" alt="Restaurant food" class="service-mobile-img" loading="lazy">
+        </div>
+      </div>
+
+      <div class="service-item" data-img="2" onclick="selectService(this,2)">
+        <span class="service-num">03</span>
+        <div>
+          <div class="service-name">ACCOMMODATION</div>
+          <div class="service-desc">Clean, comfortable, affordable rooms. A quiet place to rest. KES 2,000–2,500.</div>
+          <img src="service-accommodation.jpg" alt="Accommodation" class="service-mobile-img" loading="lazy">
+        </div>
+      </div>
+
+      <div class="service-item" data-img="3" onclick="selectService(this,3)">
+        <span class="service-num">04</span>
+        <div>
+          <div class="service-name">GYM & FITNESS</div>
+          <div class="service-desc">Machines, free weights, and specialised trainers. Reviewed as "knowledgeable and approachable."</div>
+          <img src="service-gym.jpg" alt="Gym" class="service-mobile-img" loading="lazy">
+        </div>
+      </div>
+
+      <div class="service-item" data-img="4" onclick="selectService(this,4)">
+        <span class="service-num">05</span>
+        <div>
+          <div class="service-name">SAUNA & KINYOZI</div>
+          <div class="service-desc">Relax, refresh, and get groomed. The small sauna everyone talks about.</div>
+          <img src="service-sauna.jpg" alt="Sauna" class="service-mobile-img" loading="lazy">
+        </div>
+      </div>
+
+      <div class="service-item" data-img="5" onclick="selectService(this,5)">
+        <div>
+          <div class="service-name">CARWASH</div>
+          <div class="service-desc">While you dine, your car gets cleaned. "The carwash services are also 👌" — Phossie Oguna</div>
+          <img src="service-carwash.jpg" alt="Carwash" class="service-mobile-img" loading="lazy">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="services-preview" aria-hidden="true">
+      <!-- Preview images toggled by JS -->
+      <img src="service-bar.jpg" alt="Bar preview" class="services-preview-img active" id="previewImg0" loading="lazy">
+      <img src="service-restaurant.jpg" alt="Restaurant preview" class="services-preview-img" id="previewImg1" loading="lazy">
+      <img src="service-accommodation.jpg" alt="Accommodation preview" class="services-preview-img" id="previewImg2" loading="lazy">
+      <img src="service-gym.jpg" alt="Gym preview" class="services-preview-img" id="previewImg3" loading="lazy">
+      <img src="service-sauna.jpg" alt="Sauna & Kinyozi preview" class="services-preview-img" id="previewImg4" loading="lazy">
+      <img src="service-carwash.jpg" alt="Carwash preview" class="services-preview-img" id="previewImg5" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     COUNTDOWN / DAILY SPECIALS
+     ============================================================ -->
+<section id="specials" class="section-bg-wrap" aria-label="Daily Specials">
+  <!-- PHOTO NEEDED: daily-specials-background.jpg — close-up dramatic food shot -->
+  <img src="daily-specials-background.jpg" alt="Daily specials background" class="section-bg-img" loading="lazy" width="1920" height="800">
+  <div class="section-bg-overlay"></div>
+  <div class="section-content">
+    <span class="section-label">Available Today Only — Do Not Miss This</span>
+    <h2 class="section-title">DAILY<br>SPECIAL</h2>
+    <div class="section-divider"></div>
+
+    <div class="specials-offer reveal-el">
+      <div class="specials-offer-name" id="specialName">RANGER CHICKEN KIENYEJI</div>
+      <div class="specials-offer-price">with Mokimo · Wet Fry available · <span id="specialPrice">KES 850</span></div>
+      <div class="specials-offer-note">"Served fresh daily — prepared on the spot when you order."</div>
+    </div>
+
+    <p style="font-family:var(--font-mono);font-size:11px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin:24px 0 8px">Offer ends in</p>
+    <div class="countdown-wrap" id="countdown" aria-live="polite" aria-label="Countdown timer">
+      <div class="countdown-block">
+        <div class="countdown-num" id="cd-h">00</div>
+        <div class="countdown-unit">Hours</div>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-block">
+        <div class="countdown-num" id="cd-m">00</div>
+        <div class="countdown-unit">Minutes</div>
+      </div>
+      <div class="countdown-sep">:</div>
+      <div class="countdown-block">
+        <div class="countdown-num" id="cd-s">00</div>
+        <div class="countdown-unit">Seconds</div>
+      </div>
+    </div>
+    <div id="cd-ended" style="display:none;font-family:var(--font-mono);font-size:13px;color:var(--text-dim);letter-spacing:2px;text-transform:uppercase;margin-top:16px">Offer has ended — check back tomorrow</div>
+
+    <div style="margin-top:32px">
+      <a href="#menu" class="btn-primary"><span>SEE FULL MENU</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MENU SECTION
+     ============================================================ -->
+<section id="menu" class="section-bg-wrap section-fallback-bg" aria-label="Menu">
+  <!-- PHOTO NEEDED: menu-background.jpg — dark moody food flatlay, top-down -->
+  <img src="menu-background.jpg" alt="Menu section background — dark food spread" class="section-bg-img" loading="lazy" width="1920" height="1200">
+  <div class="section-bg-overlay"></div>
+
+  <div class="section-content menu-inner" style="padding-top:80px;padding-bottom:80px">
+    <span class="section-label reveal-el">Kamulu's Finest Table</span>
+    <h2 class="section-title reveal-el">THE<br>MENU</h2>
+    <div class="section-divider reveal-el"></div>
+    <p class="reveal-el" style="color:var(--text-muted);font-size:17px;max-width:500px;margin-bottom:48px">Every plate prepared fresh when you order. Served with care, never rushed.</p>
+
+    <div id="menu-categories"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BEFORE / AFTER SLIDER
+     ============================================================ -->
+<section id="before-after" class="section-fallback-bg" aria-label="Before and after">
+  <span class="section-label reveal-el">See The Difference</span>
+  <h2 class="section-title reveal-el" style="text-align:center">QUIET<br>TO VIBRANT</h2>
+  <p style="color:var(--text-muted);text-align:center;max-width:500px;margin:0 auto 16px;font-style:italic" class="reveal-el">Drag to reveal Reflector Inn — from a serene escape to a lively gathering spot.</p>
+
+  <div class="before-after-container" id="baContainer" role="img" aria-label="Before and after comparison of Reflector Inn">
+    <!-- PHOTO NEEDED: ba-before.jpg — Empty, quiet Reflector Inn — daytime, serene, few guests -->
+    <img src="hero-a.jpg" alt="Reflector Inn — quiet and peaceful during the day" class="ba-after" loading="lazy">
+    <!-- PHOTO NEEDED: ba-after.jpg — Reflector Inn buzzing at night, full of guests and energy -->
+    <img src="hero-b.jpg" alt="Reflector Inn — buzzing with guests, warm evening energy" class="ba-before" id="baTopImg" loading="lazy">
+    <div class="ba-handle" id="baHandle">
+      <div class="ba-grip" aria-hidden="true">⇔</div>
+    </div>
+    <span class="ba-label left">SERENE</span>
+    <span class="ba-label right">VIBRANT</span>
+  </div>
+</section>
+
+<!-- ============================================================
+     PARALLAX PHOTO STACK
+     ============================================================ -->
+<section id="photo-stack" aria-label="Photo gallery stack" class="section-fallback-bg">
+  <div class="photo-stack-sticky">
+    <!-- PHOTO NEEDED: stack-1.jpg — Food hero shot -->
+    <img src="signature-dish.jpg" alt="Signature dish at Reflector Inn" class="stack-photo" id="stackP1" loading="lazy">
+    <!-- PHOTO NEEDED: stack-2.jpg — Bar atmosphere -->
+    <img src="interior-atmosphere.jpg" alt="Interior atmosphere at Reflector Inn" class="stack-photo" id="stackP2" loading="lazy">
+    <!-- PHOTO NEEDED: stack-3.jpg — Outdoor open field / fountain -->
+    <img src="our-story-background.jpg" alt="Outdoor space and water fountain at Reflector Inn" class="stack-photo" id="stackP3" loading="lazy">
+    <!-- PHOTO NEEDED: stack-4.jpg — Night ambiance -->
+    <img src="gallery-background.jpg" alt="Evening ambiance at Reflector Inn" class="stack-photo" id="stackP4" loading="lazy">
+    <div class="photo-stack-label">The Reflector Inn Experience</div>
+  </div>
+</section>
+
+<!-- ============================================================
+     REVIEWS
+     ============================================================ -->
+<section id="reviews" class="section-fallback-bg" aria-label="Customer reviews">
+  <div style="padding:80px 40px">
+    <span class="section-label reveal-el">What People Say</span>
+    <h2 class="section-title reveal-el">REAL<br>REVIEWS</h2>
+    <div class="section-divider reveal-el"></div>
+
+    <div class="reviews-summary reveal-el">
+      <div class="reviews-big-rating" aria-label="4.1 out of 5 stars">4.1</div>
+      <div style="display:flex;gap:4px;align-items:center;margin-right:12px">
+        <span style="color:var(--gold);font-size:20px">★★★★</span><span style="color:var(--text-dim);font-size:20px">★</span>
+      </div>
+      <div class="reviews-breakdown">
+        <div class="rating-bar"><span class="rating-bar-label">5</span><div class="rating-bar-track"><div class="rating-bar-fill" style="width:40%"></div></div></div>
+        <div class="rating-bar"><span class="rating-bar-label">4</span><div class="rating-bar-track"><div class="rating-bar-fill" style="width:35%"></div></div></div>
+        <div class="rating-bar"><span class="rating-bar-label">3</span><div class="rating-bar-track"><div class="rating-bar-fill" style="width:15%"></div></div></div>
+        <div class="rating-bar"><span class="rating-bar-label">2</span><div class="rating-bar-track"><div class="rating-bar-fill" style="width:5%"></div></div></div>
+        <div class="rating-bar"><span class="rating-bar-label">1</span><div class="rating-bar-track"><div class="rating-bar-fill" style="width:5%"></div></div></div>
+      </div>
+      <div style="color:var(--text-dim);font-family:var(--font-mono);font-size:11px;letter-spacing:1px">87 Google<br>Reviews</div>
+    </div>
+
+    <div class="reviews-grid" id="reviews-grid"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT / OUR STORY
+     ============================================================ -->
+<section id="about" class="section-bg-wrap section-fallback-bg" aria-label="Our story">
+  <!-- PHOTO NEEDED: our-story-background.jpg — Chef or owner at work, candid, warm -->
+  <img src="our-story-background.jpg" alt="The story of Reflector Inn" class="section-bg-img" loading="lazy" width="1920" height="1000">
+  <div class="section-bg-overlay"></div>
+  <div class="section-content" style="padding:100px 40px">
+    <div class="about-grid">
+      <div class="about-text reveal-el">
+        <span class="section-label">Tucked Away in Kamulu</span>
+        <h2 class="section-title about-title" style="font-size:56px">OUR<br>STORY</h2>
+        <div class="section-divider"></div>
+        <p class="about-body">
+          Off Kangundo Road, near Kamulu Police Station, you'll find a place that Nairobi keeps returning to.
+          <em>Reflector Inn</em> was built with one belief: that rest, good food, and community belong in the same space.
+        </p>
+        <p class="about-body">
+          An open field. A water fountain. A bar that stays open all night. Rooms that feel like home. A gym with <em>specialised trainers</em> who actually know your name. A sauna. A kinyozi. A carwash.
+        </p>
+        <p class="about-body">
+          "Local pub but with good ambience." — <em>Samuel M. Mbindyo, Local Guide</em>
+        </p>
+        <p class="about-body">
+          Open 24 hours. Ksh 500–2,500 per person. Always ready for you.
+        </p>
+        <div style="margin-top:32px;display:flex;gap:16px;flex-wrap:wrap">
+          <a href="#booking" class="btn-primary"><span>BOOK A STAY</span></a>
+          <a href="#map-section" class="btn-outline"><span>FIND US</span></a>
+        </div>
+      </div>
+      <div class="about-img-wrap reveal-el">
+        <!-- PHOTO NEEDED: kitchen-action.jpg — Chef plating food, candid kitchen action shot -->
+        <img src="kitchen-action.jpg" alt="Chef preparing fresh food at Reflector Inn" class="about-img" loading="lazy" width="600" height="500">
+        <div class="about-img-accent" aria-hidden="true"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     GALLERY
+     ============================================================ -->
+<section id="gallery" class="section-bg-wrap section-fallback-bg" aria-label="Photo gallery">
+  <!-- PHOTO NEEDED: gallery-background.jpg — Wide atmospheric shot of Reflector Inn -->
+  <img src="gallery-background.jpg" alt="Reflector Inn gallery background" class="section-bg-img" loading="lazy" width="1920" height="1000">
+  <div class="section-bg-overlay"></div>
+  <div class="section-content" style="padding:80px 40px">
+    <span class="section-label reveal-el">Visual Story</span>
+    <h2 class="section-title reveal-el">GALLERY</h2>
+    <div class="section-divider reveal-el"></div>
+    <div class="gallery-grid" id="gallery-grid">
+      <!-- Gallery items injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+  <span class="lightbox-close" onclick="closeLightbox()" role="button" aria-label="Close lightbox" tabindex="0">✕</span>
+  <span class="lightbox-nav left" onclick="lbNav(-1)" role="button" aria-label="Previous image" tabindex="0">‹</span>
+  <img src="" alt="" id="lightbox-img">
+  <span class="lightbox-nav right" onclick="lbNav(1)" role="button" aria-label="Next image" tabindex="0">›</span>
+</div>
+
+<!-- ============================================================
+     MAP SECTION
+     ============================================================ -->
+<section id="map-section" class="section-fallback-bg" aria-label="Find us">
+  <span class="section-label reveal-el">Where To Find Us</span>
+  <h2 class="section-title reveal-el">DIRECTIONS</h2>
+  <div class="section-divider reveal-el"></div>
+
+  <div class="map-info-bar reveal-el" style="margin-bottom:32px">
+    <div class="map-info-item">
+      <span class="map-info-icon" aria-hidden="true">📍</span>
+      <div>
+        <span class="map-info-label">Address</span>
+        <div class="map-info-val">Kangundo Road, near Kamulu Police Station<br>Kamulu, Nairobi</div>
+      </div>
+    </div>
+    <div class="map-info-item">
+      <span class="map-info-icon" aria-hidden="true">🕐</span>
+      <div>
+        <span class="map-info-label">Hours</span>
+        <div class="map-info-val">Open 24 Hours · 7 Days a Week</div>
+      </div>
+    </div>
+    <div class="map-info-item">
+      <span class="map-info-icon" aria-hidden="true">🚗</span>
+      <div>
+        <span class="map-info-label">Parking</span>
+        <div class="map-info-val">Ample parking available · Carwash on-site</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-wrap">
+    <!--
+      GOOGLE MAPS API SETUP:
+      1. Get an API key at console.cloud.google.com
+      2. Replace YOUR_MAPS_API_KEY below
+      3. Replace the coordinates (-1.2921, 36.9500) with the exact Reflector Inn coordinates
+      4. Remove the map-placeholder div and uncomment the iframe below
+
+      <iframe
+        src="https://www.google.com/maps/embed/v1/place?key=YOUR_MAPS_API_KEY&q=Reflector+Inn+Kamulu+Nairobi&center=-1.2921,36.9500&zoom=16&maptype=roadmap&style=element:geometry|color:0x060608&style=element:labels.text.fill|color:0xd4af37"
+        width="100%" height="100%" style="border:0" allowfullscreen="" loading="lazy"
+        title="Reflector Inn location map">
+      </iframe>
+    -->
+    <div class="map-placeholder">
+      <div class="map-placeholder-icon" aria-hidden="true">🗺️</div>
+      <div class="map-placeholder-text">Kamulu, Nairobi · P37C+RW</div>
+      <a href="https://maps.google.com/?q=Reflector+Inn+Kamulu+Nairobi" target="_blank" rel="noopener" class="btn-primary" style="margin-top:16px"><span>OPEN IN GOOGLE MAPS</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     BOOKING / CONTACT
+     ============================================================ -->
+<section id="booking" class="section-fallback-bg" aria-label="Book a table or room">
+  <div style="padding:80px 40px">
+    <span class="section-label reveal-el">Reserve Your Spot</span>
+    <h2 class="section-title reveal-el">BOOK<br>NOW</h2>
+    <div class="section-divider reveal-el"></div>
+    <p class="reveal-el" style="color:var(--text-muted);font-size:16px;max-width:480px;margin-bottom:8px">
+      Only <span style="color:var(--gold)" id="tablesLeft">3 tables</span> remaining tonight. Make your reservation now.
+    </p>
+
+    <div class="booking-grid">
+      <div class="booking-form-wrap reveal-el">
+        <!-- Formspree action: replace YOUR_FORMSPREE_ID -->
+        <form id="booking-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" novalidate>
+          <!-- Honeypot -->
+          <input type="text" name="_honey" class="form-honey" tabindex="-1" autocomplete="off">
+          <input type="hidden" name="_subject" value="New Booking - Reflector Inn">
+
+          <div class="form-row">
+            <label class="form-label" for="book-name">Full Name</label>
+            <input type="text" id="book-name" name="name" class="form-input" placeholder="Your name" autocomplete="name" required>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="book-phone">Phone / WhatsApp</label>
+            <input type="tel" id="book-phone" name="phone" class="form-input" placeholder="+254 7XX XXX XXX" autocomplete="tel" required>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="book-email">Email (optional)</label>
+            <input type="email" id="book-email" name="email" class="form-input" placeholder="you@email.com" autocomplete="email">
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="book-service">Service</label>
+            <select id="book-service" name="service" class="form-input form-select" required>
+              <option value="">Select a service…</option>
+              <option>Table Reservation</option>
+              <option>Accommodation (Room)</option>
+              <option>Gym Membership Inquiry</option>
+              <option>Private Event / Function</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="book-date">Date & Time</label>
+            <input type="datetime-local" id="book-date" name="datetime" class="form-input" required>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="book-guests">Number of Guests</label>
+            <input type="number" id="book-guests" name="guests" class="form-input" min="1" max="50" placeholder="2" required>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="book-note">Special Requests</label>
+            <textarea id="book-note" name="note" class="form-input form-textarea" placeholder="Any dietary needs, occasion, or special requests…"></textarea>
+          </div>
+          <button type="submit" class="cart-confirm-btn" style="margin-top:8px"><span>CONFIRM RESERVATION</span></button>
+          <div id="booking-success" class="cart-success" style="margin-top:12px"></div>
+        </form>
+      </div>
+
+      <div class="booking-contact-info reveal-el">
+        <div class="contact-block">
+          <span class="contact-block-label">Call or WhatsApp</span>
+          <div class="contact-block-val">
+            <a href="tel:[INSERT PHONE]">[INSERT PHONE]</a>
+          </div>
+        </div>
+        <div class="contact-block">
+          <span class="contact-block-label">WhatsApp</span>
+          <div class="contact-block-val">
+            <a href="https://wa.me/[INSERT WHATSAPP]" target="_blank" rel="noopener">+[INSERT WHATSAPP]</a>
+          </div>
+        </div>
+        <div class="contact-block">
+          <span class="contact-block-label">Location</span>
+          <div class="contact-block-val">Kangundo Road<br>Near Kamulu Police Station<br>Kamulu, Nairobi</div>
+        </div>
+        <div class="contact-block">
+          <span class="contact-block-label">Hours</span>
+          <div class="contact-block-val">Open 24 Hours · Every Day</div>
+        </div>
+        <div class="contact-block">
+          <span class="contact-block-label">Price Range</span>
+          <div class="contact-block-val">KES 500 – 2,500 per person</div>
+        </div>
+        <div style="margin-top:8px">
+          <a href="https://wa.me/[INSERT WHATSAPP]?text=Hello%20Reflector%20Inn!%20I%27d%20like%20to%20make%20a%20reservation." target="_blank" rel="noopener" class="btn-primary" style="display:inline-block"><span>WHATSAPP US NOW</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="nav-logo">REFLECTOR INN</span>
+      <p>Lounge · Restaurant · Accommodation · Gym · Sauna · Kinyozi · Carwash. Kamulu, Nairobi. Open 24 Hours.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigate</div>
+      <div class="footer-col-links">
+        <a href="#services">Services</a>
+        <a href="#menu">Menu</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#about">Our Story</a>
+        <a href="#gallery">Gallery</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <div class="footer-col-links">
+        <a href="#services">Bar & Lounge</a>
+        <a href="#services">Restaurant</a>
+        <a href="#services">Accommodation</a>
+        <a href="#services">Gym & Fitness</a>
+        <a href="#services">Sauna & Kinyozi</a>
+        <a href="#services">Carwash</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <div class="footer-col-links">
+        <a href="tel:[INSERT PHONE]">Call Us</a>
+        <a href="https://wa.me/[INSERT WHATSAPP]" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="#map-section">Directions</a>
+        <a href="#booking">Book Now</a>
+        <a href="#" onclick="showPrivacy();return false;">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Reflector Inn Lounge & Accommodation · Kamulu, Nairobi</span>
+    <div class="footer-legal">
+      <a href="#" onclick="showPrivacy();return false;">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     FLOATING BUTTONS
+     ============================================================ -->
+<a href="https://wa.me/[INSERT WHATSAPP]?text=Hello%20Reflector%20Inn!%20I'd%20like%20to%20enquire%20about%20your%20services."
+   id="whatsapp-btn"
+   target="_blank"
+   rel="noopener"
+   aria-label="Chat with us on WhatsApp"
+   title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- Cart FAB -->
+<div id="cart-fab" role="button" aria-label="View your order" tabindex="0">
+  <button class="cart-fab-btn" onclick="toggleCart()" aria-label="Open your order" style="pointer-events:auto!important">
+    🛒
+    <span class="cart-count" id="cartCount" aria-live="polite">0</span>
+  </button>
+</div>
+
+<!-- Cart Panel -->
+<div id="cart-panel" role="dialog" aria-modal="true" aria-label="Your order">
+  <div class="cart-header">
+    <span class="cart-title">YOUR ORDER</span>
+    <button class="cart-close" onclick="toggleCart()" aria-label="Close order panel" style="pointer-events:auto!important">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty">Your order is empty. Add something delicious!</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-nudge" id="cartNudge"></div>
+    <div class="cart-total-row">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-val" id="cartTotal">KES 0</span>
+    </div>
+    <label class="cart-delivery-label" for="cart-name">Your Name</label>
+    <input type="text" id="cart-name" class="cart-input" placeholder="Enter your name" autocomplete="name">
+    <label class="cart-delivery-label" for="cart-delivery">Delivery Address or Pickup</label>
+    <input type="text" id="cart-delivery" class="cart-input" placeholder="Delivery address or Pickup">
+    <label class="cart-delivery-label" for="cart-phone">Your Phone Number</label>
+    <input type="tel" id="cart-phone" class="cart-input" placeholder="+254 7XX XXX XXX" autocomplete="tel">
+    <button class="cart-confirm-btn" onclick="confirmOrder()" aria-label="Confirm order" style="pointer-events:auto!important"><span>CONFIRM ORDER</span></button>
+    <div class="cart-success" id="cartSuccess"></div>
+  </div>
+</div>
+
+<!-- AI Receptionist Button -->
+<button id="ai-btn" onclick="toggleAI()" aria-label="Chat with Amina, our AI receptionist" title="Chat with Amina" style="pointer-events:auto!important">🤖</button>
+
+<!-- AI Receptionist Panel -->
+<div id="ai-panel" role="dialog" aria-modal="true" aria-label="AI Receptionist Amina">
+  <div class="ai-header">
+    <div class="ai-avatar" aria-hidden="true">A</div>
+    <div class="ai-name-wrap">
+      <div class="ai-name">AMINA</div>
+      <div class="ai-online"><span class="ai-dot"></span>Online now</div>
+    </div>
+    <div class="ai-lang-wrap">
+      <button class="lang-pill active" id="langEN" onclick="setLang('EN')" aria-pressed="true" style="pointer-events:auto!important">EN</button>
+      <button class="lang-pill" id="langSW" onclick="setLang('SW')" aria-pressed="false" style="pointer-events:auto!important">SW</button>
+    </div>
+    <button class="ai-close" onclick="toggleAI()" aria-label="Close chat" style="pointer-events:auto!important">✕</button>
+  </div>
+  <div class="ai-messages" id="ai-messages"></div>
+  <div class="ai-suggestions" id="ai-chips"></div>
+  <div class="ai-input-row">
+    <input type="text" class="ai-input" id="ai-input" placeholder="Type a message…" aria-label="Message Amina">
+    <button class="ai-send" onclick="aiSend()" aria-label="Send message" style="pointer-events:auto!important">➤</button>
+  </div>
+</div>
+
+<!-- ============================================================
+     PRIVACY POLICY PAGE
+     ============================================================ -->
+<div id="privacy-page" role="dialog" aria-modal="true" aria-label="Privacy Policy">
+  <span class="privacy-close" onclick="hidePrivacy()" role="button" aria-label="Close privacy policy" tabindex="0">✕</span>
+  <div class="privacy-content">
+    <h2>PRIVACY POLICY</h2>
+    <p><em>Last updated: January 2025 · Reflector Inn Lounge & Accommodation, Kamulu, Nairobi</em></p>
+    <h3>1. Data We Collect</h3>
+    <p>We collect name, phone, email, and booking details submitted through forms on this website. We also collect usage data via cookies for analytics purposes.</p>
+    <h3>2. How We Use Your Data</h3>
+    <p>Your data is used solely to process reservations and communicate with you about your booking. We do not sell or share your data with third parties.</p>
+    <h3>3. Kenya Data Protection Act 2019</h3>
+    <p>We comply with the Kenya Data Protection Act 2019. You have the right to access, correct, or delete your personal data. Contact us at any time.</p>
+    <h3>4. Cookies</h3>
+    <p>We use essential cookies to improve website functionality. You may decline non-essential cookies. By clicking Accept on the cookie banner, you consent to our use of cookies.</p>
+    <h3>5. Data Retention</h3>
+    <p>Booking data is retained for up to 12 months then securely deleted. No customer data is stored in the browser or on our frontend.</p>
+    <h3>6. Contact</h3>
+    <p>For data protection queries, contact us via WhatsApp: <a href="https://wa.me/[INSERT WHATSAPP]" style="color:var(--gold)">[INSERT WHATSAPP]</a> or Phone: <a href="tel:[INSERT PHONE]" style="color:var(--gold)">[INSERT PHONE]</a></p>
+  </div>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+/* ============================================================
+   EDIT HERE — ALL CHANGEABLE CONTENT
+   ============================================================ */
+const SITE_DATA = {
+  whatsapp: "[INSERT WHATSAPP]",        // e.g. "254712345678"
+  phone: "[INSERT PHONE]",              // e.g. "+254 712 345 678"
+  formspree: "YOUR_FORMSPREE_ID",
+  tablesLeft: 3,                        // scarcity counter
+  deliveryThreshold: 2000,             // KES — show nudge below this
+  countdownTo: "23:59",                // daily special ends at this time
+  special: { name: "Ranger Chicken Kienyeji", subtitle: "with Mokimo · Wet Fry available", price: "KES 850" },
+  tickerMessages: [
+    "Burger ordered — 3 minutes ago",
+    "Table for 2 booked — just now",
+    "Grilled Chicken ordered — 8 minutes ago",
+    "Room reserved for tonight — 12 minutes ago",
+    "Steak ordered — 5 minutes ago",
+    "Table for 4 booked — 20 minutes ago",
+    "Lemon Tea ordered — 2 minutes ago",
+    "Chips & Pork ordered — 7 minutes ago"
+  ],
+  menu: [
+    {
+      category: "Starters",
+      socialProof: "23 people ordered today",
+      items: [
+        { name: "Spring Rolls", price: 350, img: "spring-rolls.jpg", alt: "Crispy spring rolls" },
+        { name: "Chicken Wings", price: 550, img: "chicken-wings.jpg", alt: "Juicy chicken wings" },
+        { name: "Nachos", price: 450, img: "nachos.jpg", alt: "Loaded nachos with toppings" },
+        { name: "Soup of the Day", price: 300, img: "", alt: "Fresh soup of the day" },
+        { name: "Garlic Bread", price: 250, img: "garlic-bread.jpg", alt: "Toasted garlic bread" },
+        { name: "Onion Rings", price: 300, img: "onion-rings.jpg", alt: "Crispy onion rings" },
+        { name: "Caesar Salad", price: 500, img: "caesar-salad.jpg", alt: "Classic caesar salad" },
+        { name: "Garden Salad", price: 400, img: "garden-salad.jpg", alt: "Fresh garden salad" },
+        { name: "Fries", price: 250, img: "fries.jpg", alt: "Golden crispy fries" }
+      ]
+    },
+    {
+      category: "Mains",
+      socialProof: "47 orders today",
+      items: [
+        { name: "Burger", price: 750, img: "burger.jpg", alt: "Juicy beef burger" },
+        { name: "Grilled Chicken", price: 850, img: "grilled-chicken.jpg", alt: "Grilled chicken fillet" },
+        { name: "Pasta", price: 700, img: "pasta.jpg", alt: "Pasta with rich sauce" },
+        { name: "Steak", price: 1500, img: "steak.jpg", alt: "Grilled beef steak" },
+        { name: "Pizza", price: 900, img: "pizza.jpg", alt: "Wood-fired pizza" },
+        { name: "Club Sandwich", price: 650, img: "club-sandwich.jpg", alt: "Triple-decker club sandwich" },
+        { name: "Fish and Chips", price: 800, img: "fish-and-chips.jpg", alt: "Beer-battered fish and chips" },
+        { name: "Wrap", price: 600, img: "wrap.jpg", alt: "Grilled chicken wrap" },
+        { name: "Quesadilla", price: 550, img: "quesadilla.jpg", alt: "Cheese and chicken quesadilla" }
+      ]
+    },
+    {
+      category: "Drinks",
+      socialProof: "Lemon Tea loved by guests",
+      items: [
+        { name: "Espresso", price: 200, img: "espresso.jpg", alt: "Double espresso shot" },
+        { name: "Cappuccino", price: 280, img: "cappuccino.jpg", alt: "Frothy cappuccino" },
+        { name: "Latte", price: 300, img: "latte.jpg", alt: "Creamy cafe latte" },
+        { name: "Fresh Juice", price: 350, img: "fresh-juice.jpg", alt: "Fresh-squeezed fruit juice" },
+        { name: "Smoothie", price: 400, img: "smoothie.jpg", alt: "Tropical fruit smoothie" },
+        { name: "Milkshake", price: 450, img: "milkshake.jpg", alt: "Thick creamy milkshake" },
+        { name: "Iced Tea", price: 250, img: "iced-tea.jpg", alt: "Refreshing iced tea" },
+        { name: "Lemonade", price: 250, img: "lemonade.jpg", alt: "Fresh-squeezed lemonade" },
+        { name: "Cold Brew", price: 350, img: "cold-brew.jpg", alt: "Smooth cold brew coffee" }
+      ]
+    },
+    {
+      category: "Desserts",
+      socialProof: "12 ordered this hour",
+      items: [
+        { name: "Cheesecake", price: 450, img: "cheesecake.jpg", alt: "New York cheesecake slice" },
+        { name: "Chocolate Cake", price: 400, img: "chocolate-cake.jpg", alt: "Rich chocolate cake" },
+        { name: "Brownie", price: 350, img: "brownie.jpg", alt: "Fudgy chocolate brownie" },
+        { name: "Ice Cream", price: 300, img: "ice-cream.jpg", alt: "Scoops of ice cream" },
+        { name: "Tiramisu", price: 450, img: "tiramisu.jpg", alt: "Classic tiramisu" },
+        { name: "Fruit Tart", price: 400, img: "fruit-tart.jpg", alt: "Fresh fruit tart" },
+        { name: "Carrot Cake", price: 400, img: "carrot-cake.jpg", alt: "Moist carrot cake with frosting" },
+        { name: "Cookie", price: 200, img: "cookie.jpg", alt: "Freshly baked cookie" },
+        { name: "Waffle Sundae", price: 500, img: "waffle-sundae.jpg", alt: "Waffle topped with ice cream" }
+      ]
+    }
+  ],
+  reviews: [
+    { stars: 5, text: "I highly recommend visiting. The hospitality is on another level. The gym, specialised trainers, kinyozi, and sauna — I really love them all.", author: "Francis Franko · 5 months ago" },
+    { stars: 4, text: "The place is off Kangundo Road. Open field, water fountain, bar and accommodation. Great ambience. Food is prepared fresh on your order.", author: "Helen Maeda, Local Guide · 3 years ago" },
+    { stars: 4, text: "A perfect chilling spot with clean rooms. Affordable. Food is on order. Great experience overall.", author: "Kwash Kwaroz, Local Guide · 1 year ago" },
+    { stars: 5, text: "Tucked away in the backstreets of Kamulu — some pretty decent mutton. The ambience is top notch.", author: "JOB ISAAC MURITHI, Local Guide · 2 years ago" },
+    { stars: 5, text: "The gym is great!! Trainers are knowledgeable and approachable. Will definitely be back.", author: "Kabirū Maina, Local Guide · 3 weeks ago" },
+    { stars: 4, text: "Nice place to hold meetings. Very good food. Great service. I will come back.", author: "John Waita · 1 month ago" },
+    { stars: 4, text: "Local pub but with good ambience! Enjoyed the evening breeze and the atmosphere.", author: "Samuel M. Mbindyo, Local Guide · 6 years ago" },
+    { stars: 5, text: "Loved their lemon tea. Great food and friendly staff. Nice ample parking too.", author: "Moses Victor, Local Guide · 3 years ago" },
+    { stars: 5, text: "The chips and pork are incredible. The carwash services are also excellent.", author: "Phossie Oguna, Local Guide · 3 years ago" }
+  ],
+  gallery: [
+    { img: "signature-dish.jpg", alt: "Signature dish at Reflector Inn" },
+    { img: "interior-atmosphere.jpg", alt: "Interior atmosphere at Reflector Inn lounge" },
+    { img: "our-story-background.jpg", alt: "Reflector Inn warm story shot" },
+    { img: "gallery-background.jpg", alt: "Wide view of Reflector Inn" },
+    { img: "menu-background.jpg", alt: "Food spread at Reflector Inn" },
+    { img: "daily-specials-background.jpg", alt: "Daily special at Reflector Inn" },
+    { img: "kitchen-action.jpg", alt: "Kitchen in action at Reflector Inn" },
+    { img: "hero-a.jpg", alt: "Reflector Inn exterior — serene" },
+    { img: "hero-b.jpg", alt: "Reflector Inn vibrant evening" }
+  ]
+};
+
+/* ============================================================
+   RECEPTIONIST KNOWLEDGE — EDIT THESE DETAILS
+   ============================================================ */
+const RECEPTIONIST_KNOWLEDGE = {
+  name: "Reflector Inn Lounge & Accommodation",
+  location: "Kangundo Road, near Kamulu Police Station, Kamulu, Nairobi",
+  hours: "Open 24 hours, 7 days a week",
+  whatsapp: SITE_DATA.whatsapp,
+  phone: SITE_DATA.phone,
+  services: ["Lounge & Bar", "Restaurant (dine-in, takeaway, delivery)", "Accommodation (clean rooms)", "Gym with specialised trainers", "Sauna", "Kinyozi (barbershop)", "Carwash"],
+  pricing: {
+    "Accommodation": "KES 2,000–2,500 per night",
+    "Food": "KES 250–1,500 per dish",
+    "Drinks": "KES 200–450",
+    "Gym": "Ask us for current rates"
+  }
+};
+
+/* ============================================================
+   CART STATE
+   ============================================================ */
+let cart = [];
+
+function addToCart(name, price) {
+  const existing = cart.find(i => i.name === name);
+  if (existing) { existing.qty++; }
+  else { cart.push({ name, price, qty: 1 }); }
+  updateCartUI();
+  document.getElementById('cart-fab').style.display = 'block';
+  showCartToast(name);
+}
+
+function updateCartUI() {
+  const items = document.getElementById('cart-items');
+  const countEl = document.getElementById('cartCount');
+  const totalEl = document.getElementById('cartTotal');
+  const nudge = document.getElementById('cartNudge');
+  const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+  const count = cart.reduce((s, i) => s + i.qty, 0);
+  countEl.textContent = count;
+  totalEl.textContent = 'KES ' + total.toLocaleString();
+  if (cart.length === 0) {
+    items.innerHTML = '<div class="cart-empty">Your order is empty. Add something delicious!</div>';
+    nudge.style.display = 'none';
+  } else {
+    items.innerHTML = cart.map((item, idx) => `
+      <div class="cart-item">
+        <span class="cart-item-name">${sanitize(item.name)}</span>
+        <div class="cart-item-controls">
+          <button class="qty-btn" onclick="changeQty(${idx},-1)" aria-label="Decrease quantity" style="pointer-events:auto!important">−</button>
+          <span class="qty-val">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${idx},1)" aria-label="Increase quantity" style="pointer-events:auto!important">+</button>
+        </div>
+        <span class="cart-item-price">KES ${(item.price * item.qty).toLocaleString()}</span>
+      </div>
+    `).join('');
+    if (total < SITE_DATA.deliveryThreshold) {
+      const diff = SITE_DATA.deliveryThreshold - total;
+      nudge.style.display = 'block';
+      nudge.textContent = `Add just KES ${diff.toLocaleString()} more for priority service!`;
+    } else {
+      nudge.style.display = 'none';
+    }
+  }
+}
+
+function changeQty(idx, delta) {
+  cart[idx].qty += delta;
+  if (cart[idx].qty <= 0) cart.splice(idx, 1);
+  if (cart.length === 0) document.getElementById('cart-fab').style.display = 'none';
+  updateCartUI();
+}
+
+function toggleCart() {
+  document.getElementById('cart-panel').classList.toggle('open');
+}
+
+function showCartToast(name) {
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:180px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--bg-deep);font-family:var(--font-mono);font-size:11px;letter-spacing:1px;padding:8px 18px;z-index:99998;pointer-events:none;white-space:nowrap;';
+  t.textContent = sanitize(name) + ' added!';
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 2000);
+}
+
+function confirmOrder() {
+  const nameEl = document.getElementById('cart-name');
+  const deliveryEl = document.getElementById('cart-delivery');
+  const phoneEl = document.getElementById('cart-phone');
+  const successEl = document.getElementById('cartSuccess');
+  const name = sanitize(nameEl.value.trim());
+  const delivery = sanitize(deliveryEl.value.trim());
+  const phone = sanitize(phoneEl.value.trim());
+  if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+  if (cart.length === 0) { alert('Your order is empty!'); return; }
+  const lines = cart.map(i => `${i.name} x${i.qty} — KES ${(i.price*i.qty).toLocaleString()}`).join('\n');
+  const total = cart.reduce((s,i)=>s+i.price*i.qty,0);
+  const msg = encodeURIComponent(
+    `NEW ORDER 🍽️\n──────────\n${lines}\n──────────\nTOTAL: KES ${total.toLocaleString()}\nDelivery/Pickup: ${delivery || 'Pickup'}\nPhone: ${phone}\nName: ${name}`
+  );
+  window.open(`https://wa.me/${SITE_DATA.whatsapp}?text=${msg}`, '_blank');
+  successEl.style.display = 'block';
+  successEl.textContent = `Your order is confirmed, ${name}! You are going to love it. We'll contact you within 15 minutes. 🎉`;
+  cart = [];
+  updateCartUI();
+  document.getElementById('cart-fab').style.display = 'none';
+  setTimeout(() => { successEl.style.display = 'none'; toggleCart(); }, 5000);
+}
+
+/* ============================================================
+   MENU RENDERING
+   ============================================================ */
+function renderMenu() {
+  const container = document.getElementById('menu-categories');
+  SITE_DATA.menu.forEach(cat => {
+    const catEl = document.createElement('div');
+    catEl.className = 'menu-category reveal-el';
+    catEl.innerHTML = `
+      <div class="menu-cat-header">
+        <span class="menu-cat-title">${cat.category.toUpperCase()}</span>
+        <span class="menu-cat-count">${cat.items.length} items</span>
+        ${cat.socialProof ? `<span class="social-proof-tag">🔥 ${cat.socialProof}</span>` : ''}
+      </div>
+      <div class="menu-row-wrap">
+        <button class="menu-arrow left" onclick="scrollMenu(this,-1)" aria-label="Scroll left">‹</button>
+        <div class="menu-row">
+          ${cat.items.map(item => `
+            <div class="menu-card" role="article">
+              ${item.img
+                ? `<img src="${item.img}" alt="${item.alt}" class="menu-card-img" loading="lazy" width="220" height="150">`
+                : `<!-- PHOTO NEEDED: ${item.name} food photo --><div class="menu-card-img" style="background:var(--bg-panel);display:flex;align-items:center;justify-content:center;"><span style="color:var(--text-dim);font-family:var(--font-mono);font-size:10px;letter-spacing:1px">${item.name.toUpperCase()}</span></div>`
+              }
+              <div class="menu-card-body">
+                <div class="menu-card-name">${item.name}</div>
+                <div class="menu-card-price">KES ${item.price.toLocaleString()}</div>
+              </div>
+              <button class="menu-card-add" onclick="addToCart('${item.name.replace(/'/g,"\\'")}',${item.price})" aria-label="Add ${item.name} to order" style="pointer-events:auto!important">+</button>
+            </div>
+          `).join('')}
+        </div>
+        <button class="menu-arrow right" onclick="scrollMenu(this,1)" aria-label="Scroll right">›</button>
+      </div>
+    `;
+    container.appendChild(catEl);
+  });
+}
+
+function scrollMenu(btn, dir) {
+  const row = btn.parentElement.querySelector('.menu-row');
+  row.scrollBy({ left: dir * 260, behavior: 'smooth' });
+}
+
+/* ============================================================
+   REVIEWS RENDERING
+   ============================================================ */
+function renderReviews() {
+  const grid = document.getElementById('reviews-grid');
+  SITE_DATA.reviews.forEach((r, i) => {
+    const card = document.createElement('div');
+    card.className = 'review-card reveal-el';
+    card.innerHTML = `
+      <div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+      <p class="review-text">"${r.text}"</p>
+      <div class="review-author">${r.author}</div>
+    `;
+    card.style.transitionDelay = (i * 80) + 'ms';
+    grid.appendChild(card);
+  });
+}
+
+/* ============================================================
+   GALLERY RENDERING
+   ============================================================ */
+let galleryImgs = [];
+let currentLbIdx = 0;
+
+function renderGallery() {
+  const grid = document.getElementById('gallery-grid');
+  galleryImgs = SITE_DATA.gallery;
+  galleryImgs.forEach((item, idx) => {
+    const el = document.createElement('div');
+    el.className = 'gallery-item reveal-el';
+    el.innerHTML = `
+      <img src="${item.img}" alt="${item.alt}" loading="lazy" width="400" height="300">
+      <div class="gallery-item-overlay">View</div>
+    `;
+    el.style.transitionDelay = (idx * 60) + 'ms';
+    el.addEventListener('click', () => openLightbox(idx));
+    grid.appendChild(el);
+  });
+}
+
+function openLightbox(idx) {
+  currentLbIdx = idx;
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = galleryImgs[idx].img;
+  document.getElementById('lightbox-img').alt = galleryImgs[idx].alt;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lbNav(dir) {
+  currentLbIdx = (currentLbIdx + dir + galleryImgs.length) % galleryImgs.length;
+  document.getElementById('lightbox-img').src = galleryImgs[currentLbIdx].img;
+  document.getElementById('lightbox-img').alt = galleryImgs[currentLbIdx].alt;
+}
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('lightbox').classList.contains('open')) {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lbNav(-1);
+    if (e.key === 'ArrowRight') lbNav(1);
+  }
+});
+
+/* ============================================================
+   TICKER
+   ============================================================ */
+function initTicker() {
+  const msgs = SITE_DATA.tickerMessages;
+  let idx = 0;
+  const el = document.getElementById('ticker-msg');
+  el.textContent = msgs[0];
+  setInterval(() => {
+    el.classList.add('fade');
+    setTimeout(() => {
+      idx = (idx + 1) % msgs.length;
+      el.textContent = msgs[idx];
+      el.classList.remove('fade');
+    }, 400);
+  }, 4000);
+}
+
+/* ============================================================
+   COUNTDOWN
+   ============================================================ */
+function initCountdown() {
+  const [targetH, targetM] = SITE_DATA.countdownTo.split(':').map(Number);
+  function update() {
+    const now = new Date();
+    const target = new Date();
+    target.setHours(targetH, targetM, 0, 0);
+    if (target <= now) target.setDate(target.getDate() + 1);
+    const diff = Math.max(0, target - now);
+    if (diff === 0) {
+      document.getElementById('countdown').style.display = 'none';
+      document.getElementById('cd-ended').style.display = 'block';
+      return;
+    }
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  update();
+  setInterval(update, 1000);
+}
+
+/* ============================================================
+   BEFORE / AFTER SLIDER
+   ============================================================ */
+function initBeforeAfter() {
+  const container = document.getElementById('baContainer');
+  const topImg = document.getElementById('baTopImg');
+  const handle = document.getElementById('baHandle');
+  let dragging = false;
+  let pct = 50;
+
+  function setPos(x) {
+    const rect = container.getBoundingClientRect();
+    pct = Math.max(0, Math.min(100, (x - rect.left) / rect.width * 100));
+    topImg.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+    handle.style.left = pct + '%';
+  }
+
+  container.addEventListener('mousedown', e => { dragging = true; setPos(e.clientX); e.preventDefault(); });
+  document.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
+  document.addEventListener('mouseup', () => { dragging = false; });
+  container.addEventListener('touchstart', e => { dragging = true; setPos(e.touches[0].clientX); }, { passive: true });
+  document.addEventListener('touchmove', e => { if (dragging) setPos(e.touches[0].clientX); }, { passive: true });
+  document.addEventListener('touchend', () => { dragging = false; });
+  setPos(container.getBoundingClientRect().left + container.offsetWidth / 2);
+}
+
+/* ============================================================
+   PARALLAX PHOTO STACK
+   ============================================================ */
+function initPhotoStack() {
+  const section = document.getElementById('photo-stack');
+  const photos = [
+    document.getElementById('stackP1'),
+    document.getElementById('stackP2'),
+    document.getElementById('stackP3'),
+    document.getElementById('stackP4')
+  ];
+  const speeds = [1.2, 0.8, 0.5, 0.3];
+
+  if (window.innerWidth < 768) return; // disable on mobile for perf
+
+  window.addEventListener('scroll', () => {
+    const rect = section.getBoundingClientRect();
+    const progress = Math.max(0, Math.min(1, -rect.top / (section.offsetHeight - window.innerHeight)));
+    photos.forEach((p, i) => {
+      if (!p) return;
+      const translateY = progress * speeds[i] * -200;
+      const baseRot = ['-2deg', '0.8deg', '-0.5deg', '1.5deg'][i];
+      p.style.transform = `translateY(${translateY}px) rotate(${baseRot})`;
+    });
+  }, { passive: true });
+}
+
+/* ============================================================
+   SERVICES IMMERSIVE SELECTOR
+   ============================================================ */
+function selectService(el, imgIdx) {
+  document.querySelectorAll('.service-item').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  const bgImgs = document.querySelectorAll('#servicesBgLayer img');
+  bgImgs.forEach(img => img.classList.remove('active'));
+  if (bgImgs[imgIdx]) bgImgs[imgIdx].classList.add('active');
+  const previewImgs = document.querySelectorAll('.services-preview-img');
+  previewImgs.forEach(img => img.classList.remove('active'));
+  const preview = document.getElementById('previewImg' + imgIdx);
+  if (preview) preview.classList.add('active');
+}
+
+/* ============================================================
+   NAV & HERO ANIMATIONS
+   ============================================================ */
+function initNav() {
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > window.innerHeight * 0.8) {
+      nav.classList.add('solid');
+    } else {
+      nav.classList.remove('solid');
+    }
+  }, { passive: true });
+}
+
+function initHeroReveal() {
+  const imgA = document.getElementById('hero-a-img');
+  const imgB = document.getElementById('hero-b-img');
+  const contentA = document.getElementById('hero-a-content');
+  const contentB = document.getElementById('hero-b-content');
+
+  function tryLoad(img) {
+    if (img.complete) { img.classList.add('loaded'); }
+    else { img.addEventListener('load', () => img.classList.add('loaded')); }
+  }
+  tryLoad(imgA);
+  tryLoad(imgB);
+
+  setTimeout(() => { contentA.classList.add('reveal'); }, 300);
+  const ob = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { contentB.classList.add('reveal'); ob.unobserve(e.target); }});
+  }, { threshold: 0.3 });
+  const heroB = document.getElementById('hero-b');
+  if (heroB) ob.observe(heroB);
+}
+
+/* ============================================================
+   PARALLAX HERO (desktop only)
+   ============================================================ */
+function initHeroParallax() {
+  if (window.innerWidth < 768) return;
+  const heroBg = document.querySelector('#hero-a .hero-bg');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y < window.innerHeight) {
+      if (heroBg) heroBg.style.transform = `translateY(${y * 0.4}px)`;
+    }
+  }, { passive: true });
+}
+
+/* ============================================================
+   MOUSE TRACKING (Hero 1, desktop)
+   ============================================================ */
+function initMouseTracking() {
+  if (window.innerWidth < 768) return;
+  const hero = document.getElementById('hero-a');
+  const bg = hero.querySelector('.hero-bg');
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+  hero.addEventListener('mousemove', e => {
+    const rect = hero.getBoundingClientRect();
+    tx = ((e.clientX - rect.left) / rect.width - 0.5) * 24;
+    ty = ((e.clientY - rect.top) / rect.height - 0.5) * 24;
+  });
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function animate() {
+    cx = lerp(cx, tx, 0.07);
+    cy = lerp(cy, ty, 0.07);
+    if (bg) bg.style.transform = `translate(${cx}px, ${cy}px)`;
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+/* ============================================================
+   INTERSECTION OBSERVER REVEALS
+   ============================================================ */
+function initReveal() {
+  const ob = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        ob.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal-el').forEach(el => ob.observe(el));
+
+  // Re-run for dynamically added elements
+  setTimeout(() => {
+    document.querySelectorAll('.reveal-el:not(.visible)').forEach(el => ob.observe(el));
+  }, 500);
+}
+
+/* ============================================================
+   AI RECEPTIONIST
+   ============================================================ */
+let currentLang = 'EN';
+let visitorName = '';
+let aiOpen = false;
+
+const CHIPS = {
+  EN: ['Hours', 'Location', 'Services', 'Pricing', 'Book a table', 'Book a room'],
+  SW: ['Saa za kufungua', 'Mahali', 'Huduma', 'Bei', 'Hifadhi meza', 'Hifadhi chumba']
+};
+
+function toggleAI() {
+  aiOpen = !aiOpen;
+  const panel = document.getElementById('ai-panel');
+  if (aiOpen) {
+    panel.classList.add('open');
+    if (document.getElementById('ai-messages').children.length === 0) {
+      aiAddMsg('bot', currentLang === 'EN'
+        ? "Hello! I'm Amina 👋 Welcome to Reflector Inn. What's your name?"
+        : "Habari! Mimi ni Amina 👋 Karibu Reflector Inn. Jina lako ni nani?");
+    }
+    renderChips();
+  } else {
+    panel.classList.remove('open');
+  }
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('langEN').classList.toggle('active', lang === 'EN');
+  document.getElementById('langSW').classList.toggle('active', lang === 'SW');
+  document.getElementById('langEN').setAttribute('aria-pressed', lang === 'EN');
+  document.getElementById('langSW').setAttribute('aria-pressed', lang === 'SW');
+  renderChips();
+}
+
+function renderChips() {
+  const chips = document.getElementById('ai-chips');
+  chips.innerHTML = CHIPS[currentLang].map(c =>
+    `<button class="ai-chip" onclick="aiHandleInput('${c}')" style="pointer-events:auto!important">${c}</button>`
+  ).join('');
+}
+
+function aiSend() {
+  const input = document.getElementById('ai-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  aiHandleInput(text);
+}
+
+document.getElementById('ai-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') aiSend();
+});
+
+function aiAddMsg(role, text) {
+  const msgs = document.getElementById('ai-messages');
+  const div = document.createElement('div');
+  div.className = `ai-msg ${role}`;
+  div.textContent = text;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function aiHandleInput(text) {
+  aiAddMsg('user', text);
+  const t = text.toLowerCase();
+  const name = visitorName || 'friend';
+  setTimeout(() => {
+    const response = aiGetResponse(t, name);
+    aiAddMsg('bot', response);
+  }, 400);
+}
+
+function aiGetResponse(t, name) {
+  const EN = currentLang === 'EN';
+
+  // Capture name
+  if (!visitorName && (t.includes('my name is') || t.includes('i am') || t.includes('i\'m') || t.match(/^[a-z]{2,20}$/))) {
+    const match = t.match(/(?:my name is|i am|i'm|)\s*([a-z]{2,20})/);
+    if (match) {
+      visitorName = match[1].charAt(0).toUpperCase() + match[1].slice(1);
+      return EN
+        ? `Great to meet you, ${visitorName}! How can I help you today? You can ask about our services, hours, pricing, or book a table.`
+        : `Nafurahi kukujua, ${visitorName}! Ninaweza kukusaidiaje leo?`;
+    }
+  }
+
+  if (/hello|hi|hey|habari|jambo|sasa|niaje/.test(t)) {
+    return EN
+      ? `Hello ${name}! Great to hear from you. What can I help you with today?`
+      : `Habari ${name}! Karibu sana. Ninaweza kukusaidia vipi?`;
+  }
+  if (/hour|open|close|time|saa|fungua|fung/.test(t)) {
+    return EN
+      ? `We are ${RECEPTIONIST_KNOWLEDGE.hours}. Come any time — Reflector Inn never closes! 🌙`
+      : `Tunafungua ${RECEPTIONIST_KNOWLEDGE.hours}. Kuja wakati wowote!`;
+  }
+  if (/location|where|address|direction|mahali|wapi|find|njia/.test(t)) {
+    return EN
+      ? `You can find us at ${RECEPTIONIST_KNOWLEDGE.location}. Off Kangundo Road — look for us near Kamulu Police Station. We have ample parking! 📍`
+      : `Unaweza kutupata ${RECEPTIONIST_KNOWLEDGE.location}. Karibu na kituo cha polisi Kamulu.`;
+  }
+  if (/service|offer|do you have|gym|sauna|kinyozi|carwash|bar|room|accommodation|huduma/.test(t)) {
+    const list = RECEPTIONIST_KNOWLEDGE.services.join(', ');
+    return EN
+      ? `We offer: ${list}. Which would you like to know more about?`
+      : `Tunatoa: ${list}. Ungependa kujua zaidi kuhusu huduma ipi?`;
+  }
+  if (/price|cost|how much|bei|pesa|ksh|kes|afford|cheap|expen/.test(t)) {
+    return EN
+      ? `Our prices:\n• Accommodation: ${RECEPTIONIST_KNOWLEDGE.pricing.Accommodation}\n• Food: ${RECEPTIONIST_KNOWLEDGE.pricing.Food}\n• Drinks: ${RECEPTIONIST_KNOWLEDGE.pricing.Drinks}\n• Gym: ${RECEPTIONIST_KNOWLEDGE.pricing.Gym}`
+      : `Bei zetu:\n• Malazi: ${RECEPTIONIST_KNOWLEDGE.pricing.Accommodation}\n• Chakula: ${RECEPTIONIST_KNOWLEDGE.pricing.Food}\n• Vinywaji: ${RECEPTIONIST_KNOWLEDGE.pricing.Drinks}`;
+  }
+  if (/book|reserve|table|room|reservation|hifadhi|meza|chumba/.test(t)) {
+    return EN
+      ? `To book, WhatsApp us at ${RECEPTIONIST_KNOWLEDGE.whatsapp} or call ${RECEPTIONIST_KNOWLEDGE.phone}. You can also use the booking form on this page! 📋`
+      : `Kuweka nafasi, tuma WhatsApp ${RECEPTIONIST_KNOWLEDGE.whatsapp} au piga simu ${RECEPTIONIST_KNOWLEDGE.phone}.`;
+  }
+  if (/contact|phone|call|whatsapp|number|simu|wasiliana/.test(t)) {
+    return EN
+      ? `WhatsApp: ${RECEPTIONIST_KNOWLEDGE.whatsapp} | Phone: ${RECEPTIONIST_KNOWLEDGE.phone} — we're always available! 📞`
+      : `WhatsApp: ${RECEPTIONIST_KNOWLEDGE.whatsapp} | Simu: ${RECEPTIONIST_KNOWLEDGE.phone}`;
+  }
+  if (/thank|asante|sawa|good|great|nice|awesome/.test(t)) {
+    return EN
+      ? `You are so welcome, ${name}! Is there anything else I can help with? 😊`
+      : `Karibu sana, ${name}! Kuna kitu kingine unachohitaji?`;
+  }
+  if (/bye|goodbye|kwaheri|later|see you/.test(t)) {
+    return EN
+      ? `Have a wonderful day, ${name}! We look forward to welcoming you at Reflector Inn. 🌟`
+      : `Siku njema, ${name}! Kwaheri na tutaonana Reflector Inn!`;
+  }
+  if (/human|staff|speak|talk|person|manager/.test(t)) {
+    return EN
+      ? `Reach our team directly: WhatsApp ${RECEPTIONIST_KNOWLEDGE.whatsapp}, Phone ${RECEPTIONIST_KNOWLEDGE.phone}. We're always available!`
+      : `Wasiliana na timu yetu: WhatsApp ${RECEPTIONIST_KNOWLEDGE.whatsapp}, Simu ${RECEPTIONIST_KNOWLEDGE.phone}`;
+  }
+  // Default
+  return EN
+    ? `Great question, ${name}! For the most accurate answer, please WhatsApp us at ${RECEPTIONIST_KNOWLEDGE.whatsapp} or just call ${RECEPTIONIST_KNOWLEDGE.phone} — we're open 24/7! 😊`
+    : `Swali zuri, ${name}! Wasiliana nasi kwenye WhatsApp ${RECEPTIONIST_KNOWLEDGE.whatsapp} au piga simu ${RECEPTIONIST_KNOWLEDGE.phone}.`;
+}
+
+/* ============================================================
+   BOOKING FORM
+   ============================================================ */
+function initBookingForm() {
+  const form = document.getElementById('booking-form');
+  const success = document.getElementById('booking-success');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const honey = form.querySelector('[name="_honey"]').value;
+    if (honey) return; // honeypot triggered
+    const nameVal = sanitize(form.querySelector('[name="name"]').value.trim());
+    if (!nameVal) { alert('Please enter your name.'); return; }
+    try {
+      const resp = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (resp.ok) {
+        success.style.display = 'block';
+        success.textContent = `Reservation confirmed, ${nameVal}! We'll contact you within 15 minutes. See you at Reflector Inn! 🎉`;
+        form.reset();
+      } else {
+        success.style.display = 'block';
+        success.style.background = 'rgba(239,68,68,0.1)';
+        success.style.color = '#f87171';
+        success.textContent = 'Something went wrong. Please WhatsApp us directly for the fastest response.';
+      }
+    } catch {
+      success.style.display = 'block';
+      success.style.background = 'rgba(239,68,68,0.1)';
+      success.style.color = '#f87171';
+      success.textContent = 'Could not send. Please WhatsApp us at ' + SITE_DATA.whatsapp;
+    }
+  });
+}
+
+/* ============================================================
+   COOKIE CONSENT
+   ============================================================ */
+function acceptCookies() {
+  document.getElementById('cookie-bar').style.display = 'none';
+  localStorage.setItem('cookiesAccepted', '1');
+}
+
+function initCookieConsent() {
+  if (localStorage.getItem('cookiesAccepted')) {
+    document.getElementById('cookie-bar').style.display = 'none';
+  }
+}
+
+/* ============================================================
+   PRIVACY POLICY
+   ============================================================ */
+function showPrivacy() { document.getElementById('privacy-page').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function hidePrivacy() { document.getElementById('privacy-page').classList.remove('open'); document.body.style.overflow = ''; }
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+function openMobileMenu() { document.getElementById('mobile-menu').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeMobileMenu() { document.getElementById('mobile-menu').classList.remove('open'); document.body.style.overflow = ''; }
+
+/* ============================================================
+   SANITIZE
+   ============================================================ */
+function sanitize(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  initCookieConsent();
+  renderMenu();
+  renderReviews();
+  renderGallery();
+  initTicker();
+  initCountdown();
+  initNav();
+  initHeroReveal();
+  initHeroParallax();
+  initMouseTracking();
+  initReveal();
+  initBeforeAfter();
+  initPhotoStack();
+  initBookingForm();
+
+  // Set special data
+  document.getElementById('specialName').textContent = SITE_DATA.special.name;
+  document.getElementById('specialPrice').textContent = SITE_DATA.special.price;
+  document.getElementById('tablesLeft').textContent = SITE_DATA.tablesLeft + ' tables';
+});
+
+// Re-observe reveal elements after dynamic content loads
+window.addEventListener('load', () => {
+  const ob = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        ob.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal-el:not(.visible)').forEach(el => ob.observe(el));
+});
+</script>
+</body>
+</html>
